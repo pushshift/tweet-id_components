@@ -12,4 +12,5 @@ Example usage:
 
 cat tweets.ndjson | jq '.id_str' | ./tweet -c all
 
+Speed: Processes around one million ids per second (~60x faster than Python)
 
