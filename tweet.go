@@ -34,7 +34,7 @@ func (i *Tweet) creation_time() string {
 }
 
 func (i *Tweet) all() string {
-	return strconv.FormatUint(i.id, 10) + "," + i.sequence_id() + "," + i.machine_id() + "," + i.server_id() + "," + i.datacenter_id() + "," + i.creation_time()
+    return strings.Join([]string{strconv.FormatUint(i.id, 10),i.sequence_id(),i.machine_id(),i.server_id(),i.datacenter_id(),i.creation_time()},",")
 }
 
 func main() {
@@ -45,6 +45,7 @@ func main() {
 	//cat twitter_ids | ./tweet -c server_id
 
 	// Get Component Flag
+
 	component := getopt.StringLong("component", 'c', "", `Tweet component. Can be one of: sequence_id, machine_id, server_id, datacenter_id, creation_time or all. All will
     print every component in the following order (id,sequence_id, machine_id, server_id, datacenter_id, creation_time)`)
 	getopt.Parse()
