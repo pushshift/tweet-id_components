@@ -14,32 +14,32 @@ type Tweet struct {
 }
 
 func (i *Tweet) sequence_id() string {
-	return strconv.FormatUint(i.id & (1<<12 - 1),10)
+	return strconv.FormatUint(i.id&(1<<12-1), 10)
 }
 
 func (i *Tweet) machine_id() string {
-	return strconv.FormatUint((i.id >> 12) & (1<<5 - 1),10)
+	return strconv.FormatUint((i.id>>12)&(1<<5-1), 10)
 }
 
 func (i *Tweet) server_id() string {
-	return strconv.FormatUint((i.id >> 12) & (1<<10 - 1),10)
+	return strconv.FormatUint((i.id>>12)&(1<<10-1), 10)
 }
 
 func (i *Tweet) datacenter_id() string {
-	return strconv.FormatUint((i.id >> 17) & (1<<5 - 1),10)
+	return strconv.FormatUint((i.id>>17)&(1<<5-1), 10)
 }
 
 func (i *Tweet) creation_time() string {
-    return strconv.FormatUint((i.id >> 22) + 1288834974657,10)
+	return strconv.FormatUint((i.id>>22)+1288834974657, 10)
 }
 
 func (i *Tweet) all() string {
-    return strconv.FormatUint(i.id,10) + "," + i.sequence_id() + "," + i.machine_id() + "," + i.server_id() + "," + i.datacenter_id() + "," + i.creation_time()
+	return strconv.FormatUint(i.id, 10) + "," + i.sequence_id() + "," + i.machine_id() + "," + i.server_id() + "," + i.datacenter_id() + "," + i.creation_time()
 }
 
 func main() {
 
-    // This program allows tweet ids to be piped into it and tweet id components to be extracted from those ids
+	// This program allows tweet ids to be piped into it and tweet id components to be extracted from those ids
 
 	// Usage Example
 	//cat twitter_ids | ./tweet -c server_id
@@ -53,7 +53,7 @@ func main() {
 	// Create alias to correct method based on flag
 	var y func(*Tweet) string
 
-    switch *component {
+	switch *component {
 	case "creation_time":
 		y = (*Tweet).creation_time
 	case "server_id":
@@ -64,8 +64,8 @@ func main() {
 		y = (*Tweet).datacenter_id
 	case "sequence_id":
 		y = (*Tweet).sequence_id
-    case "all":
-        y = (*Tweet).all
+	case "all":
+		y = (*Tweet).all
 	default:
 		fmt.Println("Unknown type: " + *component + "\n")
 		getopt.Usage()
